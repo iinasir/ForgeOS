@@ -1,0 +1,19 @@
+{
+    "personal": {
+        "full_name": "Nasir Khan",
+        "email": "nasir@example.com",
+        "phone": "+91 9876543210",
+        "location": "Punjab, India",
+        "summary": "Building ForgeOS."
+    },
+    "skills": [
+        {
+            "name": "Python",
+            "level": "Advanced"
+        },
+        {
+            "name": "FastAPI",
+            "level": "Intermediate"
+        }
+    ]
+}
