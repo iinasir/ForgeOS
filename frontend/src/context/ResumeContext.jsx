@@ -10,16 +10,66 @@ export function ResumeProvider({ children }) {
       email: "",
       phone: "",
       summary: "",
+      photo: "",
     },
-    education: [],
-    experience: [],
-    skills: [],
-    projects: [],
-    certificates: [],
+
+    education: [
+      {
+        id: Date.now(),
+        institute: "",
+        degree: "",
+        startYear: "",
+        endYear: "",
+        description: "",
+      },
+    ],
+
+    experience: [
+      {
+        id: Date.now() + 1,
+        company: "",
+        position: "",
+        startDate: "",
+        endDate: "",
+        description: "",
+      },
+    ],
+
+    skills: [
+      {
+        id: Date.now() + 2,
+        name: "",
+      },
+    ],
+
+    projects: [
+      {
+        id: Date.now() + 3,
+        title: "",
+        technologies: "",
+        github: "",
+        liveDemo: "",
+        description: "",
+      },
+    ],
+
+    certificates: [
+      {
+        id: Date.now() + 4,
+        title: "",
+        issuer: "",
+        year: "",
+      },
+    ],
   });
 
   return (
-    <ResumeContext.Provider value={{ resumeData, setResumeData }}>
+    <ResumeContext.Provider
+      value={{
+        resumeData,
+        setResumeData,
+      }}
+    >
       {children}
     </ResumeContext.Provider>
   );
