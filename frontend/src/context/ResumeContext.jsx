@@ -1,73 +1,104 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 
 const ResumeContext = createContext(null);
 
-export function ResumeProvider({ children }) {
-  const [resumeData, setResumeData] = useState({
-    personal: {
-      fullName: "",
-      title: "",
-      email: "",
-      phone: "",
-      summary: "",
-      photo: "",
+const defaultResume = {
+  personal: {
+    photo: "",
+    fullName: "",
+    title: "",
+    email: "",
+    phone: "",
+    location: "",
+    portfolio: "",
+    linkedin: "",
+    summary: "",
+  },
+
+  education: [
+    {
+      id: Date.now(),
+      institute: "",
+      degree: "",
+      startYear: "",
+      endYear: "",
+      description: "",
     },
+  ],
 
-    education: [
-      {
-        id: Date.now(),
-        institute: "",
-        degree: "",
-        startYear: "",
-        endYear: "",
-        description: "",
-      },
-    ],
+  experience: [
+    {
+      id: Date.now() + 1,
+      company: "",
+      position: "",
+      startDate: "",
+      endDate: "",
+      description: "",
+    },
+  ],
 
-    experience: [
-      {
-        id: Date.now() + 1,
-        company: "",
-        position: "",
-        startDate: "",
-        endDate: "",
-        description: "",
-      },
-    ],
+  skills: [
+    {
+      id: Date.now() + 2,
+      name: "",
+    },
+  ],
 
-    skills: [
-      {
-        id: Date.now() + 2,
-        name: "",
-      },
-    ],
+  projects: [
+    {
+      id: Date.now() + 3,
+      title: "",
+      technologies: "",
+      github: "",
+      liveDemo: "",
+      description: "",
+    },
+  ],
 
-    projects: [
-      {
-        id: Date.now() + 3,
-        title: "",
-        technologies: "",
-        github: "",
-        liveDemo: "",
-        description: "",
-      },
-    ],
+  certificates: [
+    {
+      id: Date.now() + 4,
+      name: "",
+      issuer: "",
+      year: "",
+      credentialUrl: "",
+    },
+  ],
+};
 
-    certificates: [
-      {
-        id: Date.now() + 4,
-        title: "",
-        issuer: "",
-        year: "",
-      },
-    ],
+export function ResumeProvider({ children }) {
+
+  const [resumeData, setResumeData] = useState(() => {
+    const savedResume = localStorage.getItem("forgeos-resume");
+
+    if (savedResume) {
+      return JSON.parse(savedResume);
+    }
+
+    return defaultResume;
   });
+
+  const [activeSection, setActiveSection] = useState("personal");
+
+  useEffect(() => {
+    localStorage.setItem(
+      "forgeos-resume",
+      JSON.stringify(resumeData)
+    );
+  }, [resumeData]);
 
   return (
     <ResumeContext.Provider
       value={{
         resumeData,
         setResumeData,
+        activeSection,
+        setActiveSection,
       }}
     >
       {children}

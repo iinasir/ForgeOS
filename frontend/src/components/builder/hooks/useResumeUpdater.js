@@ -13,6 +13,17 @@ export default function useResumeUpdater() {
     });
   };
 
+
+  const updatePhoto = (photo) => {
+  setResumeData({
+    ...resumeData,
+    personal: {
+      ...resumeData.personal,
+      photo,
+    },
+  });
+};
+
   const updateSection = (section, index, field, value) => {
     const updated = [...resumeData[section]];
 
@@ -44,10 +55,11 @@ export default function useResumeUpdater() {
   };
 
   return {
-    resumeData,
-    updatePersonal,
-    updateSection,
-    addItem,
-    deleteItem,
-  };
+  resumeData,
+  updatePersonal,
+  updatePhoto,
+  updateSection,
+  addItem,
+  deleteItem,
+};
 }
