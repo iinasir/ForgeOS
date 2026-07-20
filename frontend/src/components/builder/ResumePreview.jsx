@@ -1,8 +1,45 @@
 import { useResume } from "../../context/ResumeContext";
 import { Mail, Phone, Globe, Link, MapPin } from "lucide-react";
+import ModernTemplate from "./Templates/Modern/ModernTemplate";
+import ExecutiveTemplate from "./templates/Executive/ExecutiveTemplate";
+import MinimalTemplate from "./templates/Minimal/MinimalTemplate";
+import ATSTemplate from "./templates/ATS/ATSTemplate";
+import CreativeTemplate from "./templates/Creative/CreativeTemplate";
 
 export default function ResumePreview() {
   const { resumeData } = useResume();
+
+
+
+
+
+const template = resumeData.resumeSettings?.template || "modern";
+
+switch (template) {
+  case "executive":
+    return <ExecutiveTemplate />;
+
+  case "minimal":
+    return <MinimalTemplate />;
+
+  case "ats":
+    return <ATSTemplate />;
+
+  case "creative":
+    return <CreativeTemplate />;
+
+  default:
+    return <ModernTemplate />;
+}
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="max-w-[800px] mx-auto bg-white shadow-2xl min-h-[1100px] p-12">
