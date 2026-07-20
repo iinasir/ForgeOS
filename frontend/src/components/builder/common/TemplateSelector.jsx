@@ -1,44 +1,70 @@
 import { useResume } from "../../../context/ResumeContext";
 
+const templates = [
+  {
+    id: "modern",
+    name: "Modern",
+  },
+  {
+    id: "executive",
+    name: "Executive",
+  },
+  {
+    id: "minimal",
+    name: "Minimal",
+  },
+  {
+    id: "ats",
+    name: "ATS",
+  },
+  {
+    id: "creative",
+    name: "Creative",
+  },
+];
+
 export default function TemplateSelector() {
   const { resumeData, setResumeData } = useResume();
 
-  const templates = [
-    "modern",
-    "executive",
-    "minimal",
-    "ats",
-    "creative",
-  ];
+  const currentTemplate =
+    resumeData.resumeSettings?.template || "modern";
 
-  const handleChange = (e) => {
+  const handleTemplateChange = (template) => {
     setResumeData((prev) => ({
       ...prev,
       resumeSettings: {
         ...prev.resumeSettings,
-        template: e.target.value,
+        template,
       },
     }));
   };
 
   return (
-    <div className="bg-white rounded-2xl border p-5 mb-6 shadow-sm">
-      <h3 className="text-lg font-semibold mb-3">
-        Resume Template
-      </h3>
+    <div className="border-b bg-white p-5">
 
-      <select
-        value={resumeData.resumeSettings.template}
-        onChange={handleChange}
-        className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-black"
-      >
+      <h2 className="text-lg font-semibold mb-4">
+        Resume Template
+      </h2>
+
+      <div className="grid grid-cols-2 gap-3">
+
         {templates.map((template) => (
-          <option key={template} value={template}>
-            {template.charAt(0).toUpperCase() +
-              template.slice(1)}
-          </option>
+          <button
+            key={template.id}
+            onClick={() => handleTemplateChange(template.id)}
+            className={`rounded-lg border p-3 transition
+              ${
+                currentTemplate === template.id
+                  ? "bg-black text-white border-black"
+                  : "bg-white hover:bg-gray-100"
+              }`}
+          >
+            {template.name}
+          </button>
         ))}
-      </select>
+
+      </div>
+
     </div>
   );
 }
