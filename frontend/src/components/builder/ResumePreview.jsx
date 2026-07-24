@@ -1,45 +1,32 @@
 import { useResume } from "../../context/ResumeContext";
 import { Mail, Phone, Globe, Link, MapPin } from "lucide-react";
 import ModernTemplate from "./Templates/Modern/ModernTemplate";
-import ExecutiveTemplate from "./templates/Executive/ExecutiveTemplate";
-import MinimalTemplate from "./templates/Minimal/MinimalTemplate";
-import ATSTemplate from "./templates/ATS/ATSTemplate";
-import CreativeTemplate from "./templates/Creative/CreativeTemplate";
+import ExecutiveTemplate from "./Templates/Executive/ExecutiveTemplate";
+import MinimalTemplate from "./Templates/Minimal/MinimalTemplate";
+import ATSTemplate from "./Templates/ATS/ATSTemplate";
+import CreativeTemplate from "./Templates/Creative/CreativeTemplate";
 
 export default function ResumePreview() {
   const { resumeData } = useResume();
 
+  const template = resumeData.resumeSettings?.template || "modern";
 
+  switch (template) {
+    case "executive":
+      return <ExecutiveTemplate />;
 
+    case "minimal":
+      return <MinimalTemplate />;
 
+    case "ats":
+      return <ATSTemplate />;
 
-const template = resumeData.resumeSettings?.template || "modern";
+    case "creative":
+      return <CreativeTemplate />;
 
-switch (template) {
-  case "executive":
-    return <ExecutiveTemplate />;
-
-  case "minimal":
-    return <MinimalTemplate />;
-
-  case "ats":
-    return <ATSTemplate />;
-
-  case "creative":
-    return <CreativeTemplate />;
-
-  default:
-    return <ModernTemplate />;
-}
-
-
-
-
-
-
-
-
-
+    default:
+      return <ModernTemplate />;
+  }
 
   return (
     <div className="max-w-[800px] mx-auto bg-white shadow-2xl min-h-[1100px] p-12">
@@ -122,14 +109,11 @@ switch (template) {
 
       {/* Professional Summary */}
 
-      <h2 className="text-2xl font-bold mb-3">
-        Professional Summary
-      </h2>
+      <h2 className="text-2xl font-bold mb-3">Professional Summary</h2>
 
       <p className="text-gray-600 leading-7 whitespace-pre-wrap break-all">
-  {resumeData.personal.summary ||
-    "Write your professional summary here."}
-</p>
+        {resumeData.personal.summary || "Write your professional summary here."}
+      </p>
 
       <hr className="my-8" />
 
